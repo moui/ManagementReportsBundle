@@ -1,0 +1,51 @@
+{% extends 'reporting/layout.html.twig' %}
+
+{% block report %}
+    <div class="row row-cards mb-3 align-items-center">
+        <div class="col-6 col-md-3">
+            <div class="card card-sm"><div class="card-body">
+                <div class="text-secondary">{{ 'management_reports.inactive_customers.count'|trans({'%days%': days}) }}</div>
+                <div class="h2 m-0">{{ rows|length }}</div>
+            </div></div>
+        </div>
+        <div class="col-md-9">
+            <form method="get" action="{{ path('management_reports_inactive_customers') }}" class="btn-list justify-content-md-end">
+                <span class="text-secondary">{{ 'management_reports.inactive_customers.no_hours_in_last'|trans }}</span>
+                {% for option in day_options %}
+                    <a class="btn btn-sm {{ option == days ? 'btn-primary' : 'btn-outline-secondary' }}" href="{{ path('management_reports_inactive_customers', {days: option}) }}">{{ 'management_reports.inactive_customers.days'|trans({'%days%': option}) }}</a>
+                {% endfor %}
+                <a class="btn btn-sm" href="{{ path('management_reports_inactive_customers_export', {days: days}) }}">{{ 'csv'|trans }}</a>
+            </form>
+        </div>
+    </div>
+
+    {% embed '@theme/embeds/card.html.twig' with {'fullsize': true} %}
+        {% block box_title %}{{ 'management_reports.inactive_customers.table_title'|trans({'%days%': days}) }}{% endblock %}
+        {% block box_body_class %}p-0{% endblock %}
+        {% block box_body %}
+            {% if rows|length == 0 %}
+                <div class="p-3 text-success">{{ 'management_reports.inactive_customers.empty'|trans({'%days%': days}) }}</div>
+            {% else %}
+                <table class="table table-vcenter card-table dataTable">
+                    <thead>
+                        <tr><th>{{ 'customer'|trans }}</th><th>{{ 'last_record'|trans }}</th><th class="text-end">{{ 'management_reports.inactive_customers.days_without_hours'|trans }}</th></tr>
+                    </thead>
+                    <tbody>
+                        {% for row in rows %}
+                            <tr>
+                                <td><a href="{{ path('customer_details', {id: row.id}) }}">{{ row.name }}</a></td>
+                                <td>{{ row.lastEntry ? row.lastEntry|date_short : 'management_reports.inactive_customers.never'|trans }}</td>
+                                <td class="text-end">{{ row.days ?? '—' }}</td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            {% endif %}
+        {% endblock %}
+    {% endembed %}
+
+    <p class="text-secondary small">
+        {{ 'management_reports.inactive_customers.help'|trans }}
+        <a href="{{ path('report_project_inactive') }}">{{ 'report_inactive_project'|trans({}, 'reporting') }}</a>
+    </p>
+{% endblock %}

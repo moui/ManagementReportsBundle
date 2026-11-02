@@ -1,0 +1,235 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xliff xmlns="urn:oasis:names:tc:xliff:document:1.2" version="1.2">
+  <file source-language="en" target-language="es" datatype="plaintext" original="messages.en.xlf">
+    <body>
+      <trans-unit id="management_reports.summary.top" resname="management_reports.summary.top">
+        <source>Top</source>
+        <target>Top</target>
+      </trans-unit>
+      <trans-unit id="management_reports.summary.show" resname="management_reports.summary.show">
+        <source>Show</source>
+        <target>Ver</target>
+      </trans-unit>
+      <trans-unit id="management_reports.summary.empty" resname="management_reports.summary.empty">
+        <source>No entries match the selected filters.</source>
+        <target>No hay registros para los filtros seleccionados.</target>
+      </trans-unit>
+      <trans-unit id="management_reports.summary.error.invalid_date" resname="management_reports.summary.error.invalid_date">
+        <source>Please use valid dates in YYYY-MM-DD format.</source>
+        <target>Usa fechas válidas en formato AAAA-MM-DD.</target>
+      </trans-unit>
+      <trans-unit id="management_reports.summary.error.date_order" resname="management_reports.summary.error.date_order">
+        <source>The start date must be before the end date.</source>
+        <target>La fecha de inicio debe ser anterior a la fecha de fin.</target>
+      </trans-unit>
+      <trans-unit id="management_reports.summary.preset.last_30_days" resname="management_reports.summary.preset.last_30_days">
+        <source>Last 30 days</source>
+        <target>Últimos 30 días</target>
+      </trans-unit>
+      <trans-unit id="management_reports.summary.preset.this_month" resname="management_reports.summary.preset.this_month">
+        <source>This month</source>
+        <target>Este mes</target>
+      </trans-unit>
+      <trans-unit id="management_reports.summary.preset.last_month" resname="management_reports.summary.preset.last_month">
+        <source>Last month</source>
+        <target>Mes anterior</target>
+      </trans-unit>
+      <trans-unit id="management_reports.summary.preset.this_year" resname="management_reports.summary.preset.this_year">
+        <source>This year</source>
+        <target>Este año</target>
+      </trans-unit>
+      <trans-unit id="management_reports.summary.preset.last_180_days" resname="management_reports.summary.preset.last_180_days">
+        <source>Last 180 days</source>
+        <target>Últimos 180 días</target>
+      </trans-unit>
+      <trans-unit id="management_reports.summary.kpi.hours" resname="management_reports.summary.kpi.hours">
+        <source>Hours</source>
+        <target>Horas</target>
+      </trans-unit>
+      <trans-unit id="management_reports.summary.kpi.billable_percent" resname="management_reports.summary.kpi.billable_percent">
+        <source>% billable</source>
+        <target>% facturable</target>
+      </trans-unit>
+      <trans-unit id="management_reports.summary.kpi.hours_per_day" resname="management_reports.summary.kpi.hours_per_day">
+        <source>Average hours / day</source>
+        <target>Promedio horas / día</target>
+      </trans-unit>
+      <trans-unit id="management_reports.summary.kpi.entries" resname="management_reports.summary.kpi.entries">
+        <source>Entries</source>
+        <target>Registros</target>
+      </trans-unit>
+      <trans-unit id="management_reports.summary.kpi.active_users" resname="management_reports.summary.kpi.active_users">
+        <source>Active users</source>
+        <target>Usuarios activos</target>
+      </trans-unit>
+      <trans-unit id="management_reports.summary.kpi.active_customers" resname="management_reports.summary.kpi.active_customers">
+        <source>Active customers</source>
+        <target>Clientes activos</target>
+      </trans-unit>
+      <trans-unit id="management_reports.summary.kpi.active_projects" resname="management_reports.summary.kpi.active_projects">
+        <source>Active projects</source>
+        <target>Proyectos activos</target>
+      </trans-unit>
+      <trans-unit id="management_reports.summary.kpi.used_activities" resname="management_reports.summary.kpi.used_activities">
+        <source>Activities used</source>
+        <target>Actividades usadas</target>
+      </trans-unit>
+      <trans-unit id="management_reports.summary.kpi.entries_per_user" resname="management_reports.summary.kpi.entries_per_user">
+        <source>Entries per user</source>
+        <target>Registros por usuario</target>
+      </trans-unit>
+      <trans-unit id="management_reports.summary.kpi.top_customer_share" resname="management_reports.summary.kpi.top_customer_share">
+        <source>Top customer share</source>
+        <target>Peso del cliente principal</target>
+      </trans-unit>
+      <trans-unit id="management_reports.summary.period" resname="management_reports.summary.period">
+        <source>Period %from% – %to%: %total% h recorded, %billable% h billable and %non_billable% h non-billable.</source>
+        <target>Período %from% – %to%: %total% h registradas, %billable% h facturables y %non_billable% h no facturables.</target>
+      </trans-unit>
+      <trans-unit id="management_reports.summary.top_customer" resname="management_reports.summary.top_customer">
+        <source>The customer with the largest share is</source>
+        <target>El cliente con mayor peso es</target>
+      </trans-unit>
+      <trans-unit id="management_reports.summary.others" resname="management_reports.summary.others">
+        <source>Others</source>
+        <target>Otros</target>
+      </trans-unit>
+      <trans-unit id="management_reports.summary.not_billable" resname="management_reports.summary.not_billable">
+        <source>Non-billable</source>
+        <target>No facturable</target>
+      </trans-unit>
+      <trans-unit id="management_reports.summary.chart.customer" resname="management_reports.summary.chart.customer">
+        <source>Hours by customer</source>
+        <target>Horas por cliente</target>
+      </trans-unit>
+      <trans-unit id="management_reports.summary.chart.project" resname="management_reports.summary.chart.project">
+        <source>Hours by project</source>
+        <target>Horas por proyecto</target>
+      </trans-unit>
+      <trans-unit id="management_reports.summary.chart.user" resname="management_reports.summary.chart.user">
+        <source>Hours by user</source>
+        <target>Horas por usuario</target>
+      </trans-unit>
+      <trans-unit id="management_reports.summary.chart.billable" resname="management_reports.summary.chart.billable">
+        <source>Billable vs non-billable</source>
+        <target>Facturable vs no facturable</target>
+      </trans-unit>
+      <trans-unit id="management_reports.summary.chart.activity" resname="management_reports.summary.chart.activity">
+        <source>Hours by activity</source>
+        <target>Horas por actividad</target>
+      </trans-unit>
+      <trans-unit id="management_reports.summary.chart.weekday" resname="management_reports.summary.chart.weekday">
+        <source>Hours by day of the week</source>
+        <target>Horas por día de la semana</target>
+      </trans-unit>
+      <trans-unit id="management_reports.summary.ranking.customer" resname="management_reports.summary.ranking.customer">
+        <source>Customer ranking</source>
+        <target>Ranking de clientes</target>
+      </trans-unit>
+      <trans-unit id="management_reports.summary.ranking.project" resname="management_reports.summary.ranking.project">
+        <source>Project ranking</source>
+        <target>Ranking de proyectos</target>
+      </trans-unit>
+      <trans-unit id="management_reports.summary.ranking.activity" resname="management_reports.summary.ranking.activity">
+        <source>Activity ranking</source>
+        <target>Ranking de actividades</target>
+      </trans-unit>
+      <trans-unit id="management_reports.summary.share" resname="management_reports.summary.share">
+        <source>% of total</source>
+        <target>% del total</target>
+      </trans-unit>
+      <trans-unit id="management_reports.summary.help" resname="management_reports.summary.help">
+        <source>Finished entries only, by the local date of the entry. Download the full detail as CSV or look it up in:</source>
+        <target>Solo registros finalizados, por fecha local del registro. El detalle completo se descarga en CSV o se consulta en:</target>
+      </trans-unit>
+      <trans-unit id="management_reports.contracts.users" resname="management_reports.contracts.users">
+        <source>Users with a contract</source>
+        <target>Usuarios con contrato</target>
+      </trans-unit>
+      <trans-unit id="management_reports.contracts.with_warnings" resname="management_reports.contracts.with_warnings">
+        <source>With warnings</source>
+        <target>Con avisos</target>
+      </trans-unit>
+      <trans-unit id="management_reports.contracts.table_title" resname="management_reports.contracts.table_title">
+        <source>Working hours per user</source>
+        <target>Horas de trabajo por usuario</target>
+      </trans-unit>
+      <trans-unit id="management_reports.contracts.empty" resname="management_reports.contracts.empty">
+        <source>There are no enabled users to show.</source>
+        <target>No hay usuarios habilitados para mostrar.</target>
+      </trans-unit>
+      <trans-unit id="management_reports.contracts.week" resname="management_reports.contracts.week">
+        <source>Week</source>
+        <target>Semana</target>
+      </trans-unit>
+      <trans-unit id="management_reports.contracts.weekly_hours" resname="management_reports.contracts.weekly_hours">
+        <source>Weekly hours</source>
+        <target>Horas semanales</target>
+      </trans-unit>
+      <trans-unit id="management_reports.contracts.contract_type" resname="management_reports.contracts.contract_type">
+        <source>Contract type</source>
+        <target>Tipo de contrato</target>
+      </trans-unit>
+      <trans-unit id="management_reports.contracts.warning" resname="management_reports.contracts.warning">
+        <source>Warning</source>
+        <target>Aviso</target>
+      </trans-unit>
+      <trans-unit id="management_reports.contracts.warning.no_hours" resname="management_reports.contracts.warning.no_hours">
+        <source>No working hours</source>
+        <target>Sin horas de trabajo</target>
+      </trans-unit>
+      <trans-unit id="management_reports.contracts.warning.no_contract_type" resname="management_reports.contracts.warning.no_contract_type">
+        <source>Missing contract type</source>
+        <target>Falta el tipo de contrato</target>
+      </trans-unit>
+      <trans-unit id="management_reports.contracts.type.day" resname="management_reports.contracts.type.day">
+        <source>Hours per day</source>
+        <target>Horas por día</target>
+      </trans-unit>
+      <trans-unit id="management_reports.contracts.type.week" resname="management_reports.contracts.type.week">
+        <source>Hours per week</source>
+        <target>Horas por semana</target>
+      </trans-unit>
+      <trans-unit id="management_reports.contracts.type.none" resname="management_reports.contracts.type.none">
+        <source>Not defined</source>
+        <target>Sin definir</target>
+      </trans-unit>
+      <trans-unit id="management_reports.contracts.help" resname="management_reports.contracts.help">
+        <source>Expected hours per day according to each user's preferences (Profile → Working hours). Without a contract type, Kimai expects 0 hours even if daily hours are set. Administrators and system accounts are not included.</source>
+        <target>Horas esperadas por día según las preferencias de cada usuario (Perfil → Horas de trabajo). Sin tipo de contrato, Kimai calcula 0 horas esperadas aunque haya horas cargadas por día. No se incluyen administradores ni cuentas de sistema.</target>
+      </trans-unit>
+      <trans-unit id="management_reports.inactive_customers.count" resname="management_reports.inactive_customers.count">
+        <source>Customers without hours for %days%+ days</source>
+        <target>Clientes sin horas +%days% días</target>
+      </trans-unit>
+      <trans-unit id="management_reports.inactive_customers.no_hours_in_last" resname="management_reports.inactive_customers.no_hours_in_last">
+        <source>No hours in the last</source>
+        <target>Sin horas en los últimos</target>
+      </trans-unit>
+      <trans-unit id="management_reports.inactive_customers.days" resname="management_reports.inactive_customers.days">
+        <source>%days% days</source>
+        <target>%days% días</target>
+      </trans-unit>
+      <trans-unit id="management_reports.inactive_customers.table_title" resname="management_reports.inactive_customers.table_title">
+        <source>Visible customers without hours in the last %days% days</source>
+        <target>Clientes visibles sin horas en los últimos %days% días</target>
+      </trans-unit>
+      <trans-unit id="management_reports.inactive_customers.empty" resname="management_reports.inactive_customers.empty">
+        <source>No inactive customers found in the last %days% days.</source>
+        <target>No se encontraron clientes inactivos en los últimos %days% días.</target>
+      </trans-unit>
+      <trans-unit id="management_reports.inactive_customers.days_without_hours" resname="management_reports.inactive_customers.days_without_hours">
+        <source>Days without hours</source>
+        <target>Días sin horas</target>
+      </trans-unit>
+      <trans-unit id="management_reports.inactive_customers.never" resname="management_reports.inactive_customers.never">
+        <source>Never</source>
+        <target>Nunca</target>
+      </trans-unit>
+      <trans-unit id="management_reports.inactive_customers.help" resname="management_reports.inactive_customers.help">
+        <source>Finished entries only. For projects, use Kimai's report:</source>
+        <target>Solo registros finalizados. Para proyectos, usa el informe de Kimai:</target>
+      </trans-unit>
+    </body>
+  </file>
+</xliff>

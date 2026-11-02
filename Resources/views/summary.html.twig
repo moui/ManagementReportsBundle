@@ -1,0 +1,193 @@
+{% extends 'reporting/layout.html.twig' %}
+{% import "macros/charts.html.twig" as charts %}
+
+{# Values are pre-formatted in PHP (SummaryReport / Hours): Twig macros
+   imported in a block are out of scope inside `{% embed %}`. The charts
+   macros are only called at template level, outside any embed. #}
+
+{% block stylesheets %}
+    {{ parent() }}
+    {{ encore_entry_link_tags('chart') }}
+{% endblock %}
+
+{% block head %}
+    {{ parent() }}
+    {{ encore_entry_script_tags('chart') }}
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    {{ charts.doughnut_javascript({'label': 'label', 'title': 'name', 'legend': {'display': false}}) }}
+    {{ charts.bar_javascript({'label': 'label', 'title': 'name', 'legend': {'display': false}}) }}
+{% endblock %}
+
+{% block report %}
+    {% from '@theme/components/alert.html.twig' import alert %}
+
+    {% if error %}
+        {{ alert({type: 'danger', important: true, description: error|trans}) }}
+    {% endif %}
+
+    {% embed '@theme/embeds/card.html.twig' %}
+        {% block box_title %}{{ 'filter'|trans }}{% endblock %}
+        {% block box_body %}
+            <form method="get" action="{{ path('management_reports_summary') }}" class="row g-3 align-items-end">
+                <div class="col-6 col-md-2">
+                    <label class="form-label" for="mr_from">{{ 'begin'|trans }}</label>
+                    <input class="form-control" id="mr_from" type="date" name="from" value="{{ filter.from|date('Y-m-d') }}" required>
+                </div>
+                <div class="col-6 col-md-2">
+                    <label class="form-label" for="mr_to">{{ 'end'|trans }}</label>
+                    <input class="form-control" id="mr_to" type="date" name="to" value="{{ filter.to|date('Y-m-d') }}" required>
+                </div>
+                <div class="col-md-4">
+                    <label class="form-label" for="mr_users">{{ 'users'|trans }}</label>
+                    <select class="form-select selectpicker" id="mr_users" name="users[]" multiple data-placeholder="{{ 'all'|trans }}">
+                        {% for id, name in options.users %}
+                            <option value="{{ id }}" {{ id in filter.users ? 'selected' : '' }}>{{ name }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+                <div class="col-md-4">
+                    <label class="form-label" for="mr_customers">{{ 'customers'|trans }}</label>
+                    <select class="form-select selectpicker" id="mr_customers" name="customers[]" multiple data-placeholder="{{ 'all'|trans }}">
+                        {% for id, name in options.customers %}
+                            <option value="{{ id }}" {{ id in filter.customers ? 'selected' : '' }}>{{ name }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+                <div class="col-md-5">
+                    <label class="form-label" for="mr_projects">{{ 'projects'|trans }}</label>
+                    <select class="form-select selectpicker" id="mr_projects" name="projects[]" multiple data-placeholder="{{ 'all'|trans }}">
+                        {% for id, name in options.projects %}
+                            <option value="{{ id }}" {{ id in filter.projects ? 'selected' : '' }}>{{ name }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+                <div class="col-md-4">
+                    <label class="form-label" for="mr_activities">{{ 'activities'|trans }}</label>
+                    <select class="form-select selectpicker" id="mr_activities" name="activities[]" multiple data-placeholder="{{ 'all'|trans }}">
+                        {% for id, name in options.activities %}
+                            <option value="{{ id }}" {{ id in filter.activities ? 'selected' : '' }}>{{ name }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+                <div class="col-6 col-md-1">
+                    <label class="form-label" for="mr_top">{{ 'management_reports.summary.top'|trans }}</label>
+                    <input class="form-control" id="mr_top" type="number" name="top" min="5" max="25" value="{{ filter.topN }}">
+                </div>
+                <div class="col-6 col-md-2 btn-list justify-content-end">
+                    <button type="submit" class="btn btn-primary">{{ 'management_reports.summary.show'|trans }}</button>
+                    {% if not report.empty %}
+                        <a class="btn" href="{{ path('management_reports_summary_export', query) }}">{{ 'csv'|trans }}</a>
+                    {% endif %}
+                </div>
+            </form>
+            <div class="btn-list mt-3">
+                {% for label, preset in presets %}
+                    <a class="btn btn-sm btn-outline-secondary" href="{{ path('management_reports_summary', query|merge(preset)) }}">{{ label|trans }}</a>
+                {% endfor %}
+            </div>
+        {% endblock %}
+    {% endembed %}
+
+    {% if report.empty %}
+        {{ alert({type: 'warning', description: 'management_reports.summary.empty'|trans}) }}
+    {% else %}
+        <div class="row row-cards mb-3">
+            {% for label, value in report.kpis %}
+                <div class="col-6 col-md-4 col-xl">
+                    <div class="card card-sm"><div class="card-body">
+                        <div class="text-secondary text-truncate" title="{{ label|trans }}">{{ label|trans }}</div>
+                        <div class="h2 m-0">{{ value }}</div>
+                    </div></div>
+                </div>
+                {% if loop.index == 5 %}</div><div class="row row-cards mb-3">{% endif %}
+            {% endfor %}
+        </div>
+
+        <p class="text-secondary">
+            {{ 'management_reports.summary.period'|trans({
+                '%from%': filter.from|date_short,
+                '%to%': filter.to|date_short,
+                '%total%': report.durationFormatted,
+                '%billable%': report.billableFormatted,
+                '%non_billable%': report.nonBillableFormatted,
+            }) }}
+            {% if report.topCustomerName %}{{ 'management_reports.summary.top_customer'|trans }} <strong>{{ report.topCustomerName }}</strong>{% endif %}
+        </p>
+
+        {% set others = 'management_reports.summary.others'|trans %}
+        {% set byCustomer = report.chart('customer', filter.topN, others) %}
+        {% set byProject = report.chart('project', filter.topN, others) %}
+        {% set byUser = report.chart('user') %}
+        {% set billable = report.billableChart('billable'|trans, 'management_reports.summary.not_billable'|trans) %}
+        {% set byActivity = report.chart('activity', filter.topN, others) %}
+        {% set byWeekday = report.weekdayChart(weekdays) %}
+
+        <div class="row row-cards mb-3">
+            <div class="col-lg-6">
+                <div class="card"><div class="card-header"><h3 class="card-title">{{ 'management_reports.summary.chart.customer'|trans }}</h3></div><div class="card-body">
+                    {{ charts.doughnut_chart('mrChartCustomer', byCustomer.labels, byCustomer.data, {'height': '300px'}) }}
+                </div></div>
+            </div>
+            <div class="col-lg-6">
+                <div class="card"><div class="card-header"><h3 class="card-title">{{ 'management_reports.summary.chart.project'|trans }}</h3></div><div class="card-body">
+                    {{ charts.doughnut_chart('mrChartProject', byProject.labels, byProject.data, {'height': '300px'}) }}
+                </div></div>
+            </div>
+            <div class="col-lg-6">
+                <div class="card"><div class="card-header"><h3 class="card-title">{{ 'management_reports.summary.chart.user'|trans }}</h3></div><div class="card-body">
+                    {{ charts.bar_chart('mrChartUser', byUser.labels, [byUser.data], {'height': (byUser.labels|length > 10 ? '480px' : '300px'), 'indexAxis': 'y', 'maintainAspectRatio': false}) }}
+                </div></div>
+            </div>
+            <div class="col-lg-6">
+                <div class="card"><div class="card-header"><h3 class="card-title">{{ 'management_reports.summary.chart.billable'|trans }}</h3></div><div class="card-body">
+                    {{ charts.doughnut_chart('mrChartBillable', billable.labels, billable.data, {'height': '300px'}) }}
+                </div></div>
+            </div>
+            <div class="col-lg-6">
+                <div class="card"><div class="card-header"><h3 class="card-title">{{ 'management_reports.summary.chart.activity'|trans }}</h3></div><div class="card-body">
+                    {{ charts.bar_chart('mrChartActivity', byActivity.labels, [byActivity.data], {'height': '300px', 'indexAxis': 'y', 'maintainAspectRatio': false}) }}
+                </div></div>
+            </div>
+            <div class="col-lg-6">
+                <div class="card"><div class="card-header"><h3 class="card-title">{{ 'management_reports.summary.chart.weekday'|trans }}</h3></div><div class="card-body">
+                    {{ charts.bar_chart('mrChartWeekday', byWeekday.labels, [byWeekday.data], {'height': '300px', 'maintainAspectRatio': false}) }}
+                </div></div>
+            </div>
+        </div>
+
+        <div class="row row-cards">
+            {% for group, title in {'customer': 'management_reports.summary.ranking.customer', 'project': 'management_reports.summary.ranking.project', 'activity': 'management_reports.summary.ranking.activity'} %}
+                {% set rows = report.ranking(group) %}
+                <div class="col-lg-4">
+                    {% embed '@theme/embeds/card.html.twig' with {'fullsize': true} %}
+                        {% block box_title %}{{ title|trans }}{% endblock %}
+                        {% block box_body_class %}p-0{% endblock %}
+                        {% block box_body %}
+                            <div style="max-height: 28rem; overflow-y: auto;">
+                                <table class="table table-sm table-vcenter card-table">
+                                    <thead><tr><th>{{ 'name'|trans }}</th><th class="text-end">{{ 'hours'|trans }}</th><th class="text-end">{{ 'management_reports.summary.share'|trans }}</th></tr></thead>
+                                    <tbody>
+                                        {% for row in rows %}
+                                            <tr class="{{ loop.index <= filter.topN ? '' : 'text-secondary' }}">
+                                                <td>{{ row.name }}</td>
+                                                <td class="text-end text-nowrap">{{ row.duration }}</td>
+                                                <td class="text-end text-nowrap">{{ row.percent }}</td>
+                                            </tr>
+                                        {% endfor %}
+                                    </tbody>
+                                </table>
+                            </div>
+                        {% endblock %}
+                    {% endembed %}
+                </div>
+            {% endfor %}
+        </div>
+        <p class="text-secondary small mt-2">
+            {{ 'management_reports.summary.help'|trans }}
+            <a href="{{ path('admin_timesheet') }}">{{ 'all_times'|trans }}</a> / <a href="{{ path('export') }}">{{ 'export'|trans }}</a>
+        </p>
+    {% endif %}
+{% endblock %}

@@ -1,0 +1,61 @@
+{% extends 'reporting/layout.html.twig' %}
+
+{% block report %}
+    <div class="row row-cards mb-3">
+        <div class="col-6 col-md-3">
+            <div class="card card-sm"><div class="card-body">
+                <div class="text-secondary">{{ 'management_reports.contracts.users'|trans }}</div>
+                <div class="h2 m-0">{{ rows|length }}</div>
+            </div></div>
+        </div>
+        <div class="col-6 col-md-3">
+            <div class="card card-sm"><div class="card-body">
+                <div class="text-secondary">{{ 'management_reports.contracts.with_warnings'|trans }}</div>
+                <div class="h2 m-0 {{ warnings > 0 ? 'text-warning' : '' }}">{{ warnings }}</div>
+            </div></div>
+        </div>
+        <div class="col-md-6 d-flex align-items-center justify-content-md-end">
+            <a class="btn" href="{{ path('management_reports_contracts_export') }}">{{ 'csv'|trans }}</a>
+        </div>
+    </div>
+
+    {% embed '@theme/embeds/card.html.twig' with {'fullsize': true} %}
+        {% block box_title %}{{ 'management_reports.contracts.table_title'|trans }}{% endblock %}
+        {% block box_body_class %}p-0{% endblock %}
+        {% block box_body %}
+            {% if rows|length == 0 %}
+                <div class="p-3 text-secondary">{{ 'management_reports.contracts.empty'|trans }}</div>
+            {% else %}
+                <div class="table-responsive">
+                    <table class="table table-vcenter card-table">
+                        <thead>
+                            <tr>
+                                <th>{{ 'user'|trans }}</th>
+                                <th class="d-none d-lg-table-cell">{{ 'email'|trans }}</th>
+                                {% for day in days %}<th class="text-end">{{ day }}</th>{% endfor %}
+                                <th class="text-end">{{ 'management_reports.contracts.week'|trans }}</th>
+                                <th>{{ 'management_reports.contracts.contract_type'|trans }}</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for row in rows %}
+                                <tr>
+                                    <td>
+                                        {{ row.user.displayName }}
+                                        {% if row.warning %}<span class="badge bg-yellow-lt ms-1">{{ row.warning|trans }}</span>{% endif %}
+                                    </td>
+                                    <td class="d-none d-lg-table-cell">{{ row.user.email }}</td>
+                                    {% for value in row.days %}<td class="text-end text-nowrap">{{ value }}</td>{% endfor %}
+                                    <td class="text-end text-nowrap fw-bold">{{ row.weekly }}</td>
+                                    <td>{{ row.contractType|trans }}</td>
+                                </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            {% endif %}
+        {% endblock %}
+    {% endembed %}
+
+    <p class="text-secondary small">{{ 'management_reports.contracts.help'|trans }}</p>
+{% endblock %}

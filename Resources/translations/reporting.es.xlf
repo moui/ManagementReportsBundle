@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xliff xmlns="urn:oasis:names:tc:xliff:document:1.2" version="1.2">
+  <file source-language="en" target-language="es" datatype="plaintext" original="reporting.en.xlf">
+    <body>
+      <trans-unit id="management_reports.summary.title" resname="management_reports.summary.title">
+        <source>Hours summary</source>
+        <target>Resumen de horas</target>
+      </trans-unit>
+      <trans-unit id="management_reports.contracts.title" resname="management_reports.contracts.title">
+        <source>Work contracts</source>
+        <target>Contratos laborales</target>
+      </trans-unit>
+      <trans-unit id="management_reports.inactive_customers.title" resname="management_reports.inactive_customers.title">
+        <source>Inactive customers</source>
+        <target>Clientes inactivos</target>
+      </trans-unit>
+    </body>
+  </file>
+</xliff>
